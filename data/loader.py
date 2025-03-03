@@ -5,7 +5,7 @@ import pandas as pd
 def load_challenge_moves_csv(filepath: str, shuffle: bool = True) -> pd.DataFrame:
     """
     Loads a CSV file into a pandas DataFrame, converts list-like string columns into actual lists,
-    and optionally shuffles the DataFrame.
+    removes single apostrophes from 'Move' column values, and optionally shuffles the DataFrame.
 
     Args:
         filepath (str): Path to the CSV file.
@@ -17,7 +17,7 @@ def load_challenge_moves_csv(filepath: str, shuffle: bool = True) -> pd.DataFram
     df = pd.read_csv(filepath)
 
     # Convert the columns from strings to lists (using ast.literal_eval)    
-    df["Move"] = df["Move"].apply(ast.literal_eval)
+    df["Move"] = df["Move"].apply(lambda x: [move.replace("'", "") for move in ast.literal_eval(x)])
     df["Win Probability"] = df["Win Probability"].apply(ast.literal_eval)
 
     if shuffle:

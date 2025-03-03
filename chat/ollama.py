@@ -36,8 +36,8 @@ class OllamaSession:
         messages = self.cached_messages + [{"role": "user", "content": user_prompt}]
         options = {
             "num_gpu_layers": 10 if self.use_cuda else {},
-            "max_tokens": 2500,
-            "num_ctx": 4096
+            "max_tokens": 4000,
+            "num_ctx": 5000
         }
         output_queue = multiprocessing.Queue()
         process = multiprocessing.Process(
@@ -49,9 +49,16 @@ class OllamaSession:
         if process.is_alive():
             process.terminate()
             process.join()
-            raise TimeoutError("The chat request exceeded the timeout limit.")
+            raise TimeoutError(f"The chat request exceeded the timeout limit ({timeout} seconds).")
         if not output_queue.empty():
             response = output_queue.get()
-            return response["message"]["content"]
+            response_content = response["message"]["content"]
+            runtime_results = {
+                "prompt_tokens": response["prompt_eval_count"], 
+                "generated_tokens": response["eval_count"], 
+                "completion_reason": response["done_reason"],
+                "total_duration": response["total_duration"]/1e9
+            }
+            return response_content, runtime_results
         else:
             raise GenerationError("The generation failed.")

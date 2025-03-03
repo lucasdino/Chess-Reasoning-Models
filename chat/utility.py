@@ -1,4 +1,7 @@
 import re
+import random
+import typing
+from typing import List
 
 
 # ====================================================
@@ -54,3 +57,20 @@ def extract_answer(text: str) -> str:
         raise ExtractionError("Extracted text contains invalid characters.")
 
     return extracted
+
+
+def format_prompt(board: str, legal_moves: List[str]) -> str:
+    """
+    Formats the board and legal moves into a prompt for the model.
+    
+    Args:
+        board (str): The current board state.
+        legal_moves (List[str]): The list of legal moves.
+    
+    Returns:
+        str: The formatted prompt.
+    """
+    random.shuffle(legal_moves)
+    prompt = f"<FEN> {board} </FEN> <legalmoves> {legal_moves} </legalmoves>"
+    prompt = prompt.replace("'", "")
+    return prompt
