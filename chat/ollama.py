@@ -64,4 +64,4 @@ class OllamaSession:
             }
             return response_content, runtime_results
         else:
-            raise GenerationError("The generation failed.")
+            raise GenerationError("The generation failed.") 
