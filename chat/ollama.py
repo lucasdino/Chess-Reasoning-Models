@@ -53,11 +53,14 @@ class OllamaSession:
         if not output_queue.empty():
             response = output_queue.get()
             response_content = response["message"]["content"]
+            # Store some runtime data and return it -- all time in seconds
             runtime_results = {
                 "prompt_tokens": response["prompt_eval_count"], 
                 "generated_tokens": response["eval_count"], 
                 "completion_reason": response["done_reason"],
-                "total_duration": response["total_duration"]/1e9
+                "total_duration": response["total_duration"]/1e9,
+                "prompt_eval_duration": response["prompt_eval_duration"]/1e9,
+                "generation_duration": response["eval_duration"]/1e9,
             }
             return response_content, runtime_results
         else:
