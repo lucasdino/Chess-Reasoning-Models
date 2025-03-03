@@ -1,0 +1,3 @@
+Dataset from Google Deepmind's Paper - Grandmaster-Level Chess Without Search (https://arxiv.org/html/2402.04494v1).
+
+Data is from their test set (52MB) and consists of chess challenge problems in FEN notation.
