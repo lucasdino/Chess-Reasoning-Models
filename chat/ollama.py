@@ -37,6 +37,7 @@ class OllamaSession:
         options = {
             "num_gpu_layers": 10 if self.use_cuda else {},
             "max_tokens": 2500,
+            "num_ctx": 4096
         }
         output_queue = multiprocessing.Queue()
         process = multiprocessing.Process(
