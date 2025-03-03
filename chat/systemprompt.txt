@@ -7,7 +7,12 @@ The reasoning process and answer must be enclosed within <think> </think> and <a
 Below is an example of your desired behavior:
 
 Example 1:
-user: <FEN> 1B2n1k1/3b2p1/1b2pp1p/1p6/p3N3/P4P2/1P4PP/3B3K b - - 1 29 </FEN> <legal moves> ['g8f7', 'b6d4', 'g8f8', 'b6e3', 'd7c6', 'e8c7', 'h6h5', 'g7g6', 'e6e5', 'f6f5', 'g8h8', 'g8h7', 'b6c7', 'g7g5', 'd7c8', 'b6a5', 'b6d8', 'b5b4', 'e8d6', 'b6g1', 'b6f2', 'b6a7', 'b6c5'] </legal moves>
-assistant: <think> Given this board state... </think> <answer> f6f5 </answer>
+user: <FEN> 7R/4n1k1/4P3/1pp2B2/8/6P1/2r4P/6K1 w - - 3 50 </FEN> <legal moves> ['f5h7', 'h8h6', 'h2h4', 'h8g8', 'h2h3', 'g1f1', 'f5d3', 'f5h3', 'h8b8', 'h8h4', 'h8c8', 'h8f8', 'h8a8', 'h8d8', 'f5g4', 'h8h3', 'g3g4', 'g1h1', 'f5e4', 'h8h5', 'f5c2', 'h8e8', 'f5g6', 'h8h7'] </legal moves>
+assistant: <think> Playing as white, I'm in the offensive here. My rook is currently in at risk of being taken by their king and my bishop is at risk of being taken by their knight. I could take their rook with their bishop but they would take my rook. However, if I move my rook to h7, I'll put their king in check while saving my rook and bishop and continue pressure. Moving rook h8 to h7 is a wise move. </think> <answer> h8h7 </answer>
+
+Example 2:
+user: <FEN> 2r3k1/p4p1p/2pqp1p1/3pN3/3PnP1Q/6P1/PrP4P/R4RK1 b - - 1 22 </FEN> <legal moves> ['d6c7', 'c8e8', 'e4c5', 'd6d7', 'd6c5', 'b2b4', 'c8a8', 'c6c5', 'e4f6', 'c8c7', 'd6e5', 'e4g3', 'b2b6', 'c8b8', 'c8d8', 'd6b4', 'f7f5', 'b2a2', 'b2b5', 'd6a3', 'e4d2', 'c8f8', 'e4g5', 'd6b8', 'f7f6', 'd6d8', 'b2b7', 'e4f2', 'b2b8', 'h7h5', 'g6g5', 'a7a5', 'd6f8', 'b2c2', 'a7a6', 'b2b3', 'h7h6', 'g8g7', 'd6e7', 'b2b1', 'g8h8', 'e4c3', 'g8f8'] </legal moves>
+assistant: <think< Playing as black, I see that white's queen is in a threatening position, especially with their forward knight applying central pressure. If I play too aggressively, I may open myself up to an attack from the queen -- it would be wise for me to move my queen back into a more defensive position -- it is currently at d6, I should move it back to c7. </think> <answer> d6c7 </answer>
+
 
 Make sure that your chosen move is provided in standard chess notation (e.g., g8f7, c2e1, g3g4). Please use English for your thought process.

@@ -3,6 +3,8 @@ import ollama
 import multiprocessing
 from functools import lru_cache
 
+from .utility import TimeoutError, GenerationError
+
 
 # Import our system prompt
 cur_dir = os.path.dirname(os.path.abspath(__file__))
@@ -14,18 +16,6 @@ with open(f'{cur_dir}/systemprompt.txt', 'r') as file:
 @lru_cache(maxsize=1)
 def _get_cached_system_messages():
     return [{"role": "system", "content": SYSTEM_PROMPT}]
-
-
-# Defining custom exception
-class TimeoutException(Exception):
-    """Exception raised when the chat request times out."""
-    def __init__(self, message="The request timed out."):
-        super().__init__(message)
-
-class GenerationException(Exception):
-    """Exception raised when the generation fails."""
-    def __init__(self, message="The generation failed."):
-        super().__init__(message)
 
 
 # This function runs in a separate process.
@@ -58,11 +48,9 @@ class OllamaSession:
         if process.is_alive():
             process.terminate()
             process.join()
-            raise TimeoutException("The chat request exceeded the timeout limit.")
+            raise TimeoutError("The chat request exceeded the timeout limit.")
         if not output_queue.empty():
             response = output_queue.get()
-            if "error" in response:
-                raise GenerationException(response["error"])
             return response["message"]["content"]
         else:
-            raise GenerationException("The generation failed.")
+            raise GenerationError("The generation failed.")
