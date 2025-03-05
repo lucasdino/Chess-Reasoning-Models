@@ -33,4 +33,4 @@ R . . . . R K . </board>
 assistant: <think< Playing as black, I see that white's queen is in a threatening position, especially with their forward knight applying central pressure. If I play too aggressively, I may open myself up to an attack from the queen -- it would be wise for me to move my queen back into a more defensive position -- it is currently at d6, I should move it back to c7. </think> <answer> d6c7 </answer>
 
 
-Make sure that your chosen move is provided in standard chess notation (e.g., g8f7, c2e1, g3g4). Please use English for your thought process. Remember you have one minute to move so make sure your thinking isn't too long.
+Make sure that your chosen move is provided in standard chess bot notation (e.g., g8f7, c2e1, g3g4) which means move the piece on the first square to the second square (so g8f7 means move the piece on g8 to f7). Please use English for your thought process. Remember you have one minute to move so make sure your thinking isn't too long, and if your final answer is not enclosed in <answer>  </answer> tags you will lose.

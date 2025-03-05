@@ -30,7 +30,7 @@ White Knight on e5
 White Pawns on d4, f4, g3, a2, c2, h2
 White Queen on h4
 White Rooks on a1, f1 </board> <legal moves> [d6c7, c8e8, e4c5, d6d7, d6c5, b2b4, c8a8, c6c5, e4f6, c8c7, d6e5, e4g3, b2b6, c8b8, c8d8, d6b4, f7f5, b2a2, b2b5, d6a3, e4d2, c8f8, e4g5, d6b8, f7f6, d6d8, b2b7, e4f2, b2b8, h7h5, g6g5, a7a5, d6f8, b2c2, a7a6, b2b3, h7h6, g8g7, d6e7, b2b1, g8h8, e4c3, g8f8] </legal moves>
-assistant: <think< Playing as black, I see that white's queen is in a threatening position, especially with their forward knight applying central pressure. If I play too aggressively, I may open myself up to an attack from the queen -- it would be wise for me to move my queen back into a more defensive position -- it is currently at d6, I should move it back to c7. </think> <answer> d6c7 </answer>
+assistant: <think> Playing as black, I see that white's queen is in a threatening position, especially with their forward knight applying central pressure. If I play too aggressively, I may open myself up to an attack from the queen -- it would be wise for me to move my queen back into a more defensive position -- it is currently at d6, I should move it back to c7. </think> <answer> d6c7 </answer>
 
 
-Make sure that your chosen move is provided in standard chess notation (e.g., g8f7, c2e1, g3g4). Please use English for your thought process. Remember you have one minute to move so make sure your thinking isn't too long.
+Make sure that your chosen move is provided in standard chess bot notation (e.g., g8f7, c2e1, g3g4) which means move the piece on the first square to the second square (so g8f7 means move the piece on g8 to f7). Please use English for your thought process. Remember you have one minute to move so make sure your thinking isn't too long, and if your final answer is not enclosed in <answer>  </answer> tags you will lose.
