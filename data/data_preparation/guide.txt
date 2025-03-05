@@ -1,0 +1,3 @@
+1. Run the `utils/download.sh` script.  
+2. Install the dependencies listed in `requirements.txt`.  
+3. Execute the entire notebook.  

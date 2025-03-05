@@ -1,0 +1,8 @@
+numpy
+pandas
+apache-beam
+typing-extensions
+ipykernel
+etils
+importlib-resources
+chess
