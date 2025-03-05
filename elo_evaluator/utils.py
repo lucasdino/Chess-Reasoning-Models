@@ -1,15 +1,7 @@
-import copy
-import math
-import queue
 import chess
-import multiprocessing
 
-from utils import get_size
-from game import _EVAL_STOCKFISH_ENGINE, _play_game
 from engine.base import Engine
 from engine.stockfish import StockfishEngine
-import torch
-import os
 
 
 def get_size(queue):

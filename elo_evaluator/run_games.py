@@ -1,5 +1,4 @@
 import copy
-import math
 import queue
 import chess
 import multiprocessing
@@ -7,8 +6,6 @@ import multiprocessing
 from elo_eval import estimate_elo
 from utils import create_engine, get_size
 from game import _EVAL_STOCKFISH_ENGINE, _play_game
-from engine.base import Engine
-from engine.stockfish import StockfishEngine
 import torch
 import os
 
@@ -35,7 +32,7 @@ opening_boards = [chess.Board(fen) for fen in opening_fens]
 def worker(game_queue, log_lock, log_file, results, results_lock, core_id):
     os.environ["CUDA_VISIBLE_DEVICES"] = str(core_id)
     print(f"Worker using GPU {core_id}")
-    unknown_engine = create_engine("Stockfish_1950") # replace with LLM
+    unknown_engine = create_engine("Stockfish_1950", time=TIME_LIMIT) # replace with LLM
     # unknown_engine = load model and model.to_cuda() # replace with LLM
     unknown_engine_name = "unknown"
     while True:
@@ -51,7 +48,7 @@ def worker(game_queue, log_lock, log_file, results, results_lock, core_id):
                     f.write(game_log_entry)
                     f.write(queue_size_log_entry)
 
-            known_engine = create_engine(known_engine_name)
+            known_engine = create_engine(known_engine_name, time=TIME_LIMIT)
             
             game = _play_game(
                 (known_engine, unknown_engine),
@@ -106,7 +103,8 @@ if __name__ == "__main__":
     print("Torch version:", torch.__version__)
     print("CUDA available:", torch.cuda.is_available())
 
-    NUM_WORKERS = torch.cuda.device_count()
+    # NUM_WORKERS = torch.cuda.device_count()
+    NUM_WORKERS = 8
     print(f"Number of GPUs available: {NUM_WORKERS}")
 
     results = multiprocessing.Manager().dict()
