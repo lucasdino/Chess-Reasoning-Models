@@ -10,8 +10,10 @@ class StockfishEngine(Engine):
 
     def __init__(
         self,
+        name: str,
         limit: chess.engine.Limit,
     ) -> None:
+        super().__init__(name)
         self._limit = limit
         self._skill_level = None
         self._elo = None
