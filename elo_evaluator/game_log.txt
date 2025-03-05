@@ -1,0 +1,96 @@
+Playing game with Stockfish_1400, LLM as White: True
+Games in Queue: 31
+Result: 1-0 | Winner: unknown | With: Stockfish_1400 | LLM as White: True
+Playing game with Stockfish_1400, LLM as White: False
+Games in Queue: 30
+Result: 1-0 | Winner: Stockfish_1400 | With: Stockfish_1400 | LLM as White: False
+Playing game with Stockfish_1400, LLM as White: True
+Games in Queue: 29
+Result: 0-1 | Winner: Stockfish_1400 | With: Stockfish_1400 | LLM as White: True
+Playing game with Stockfish_1400, LLM as White: False
+Games in Queue: 28
+Result: 0-1 | Winner: unknown | With: Stockfish_1400 | LLM as White: False
+Playing game with Stockfish_1600, LLM as White: True
+Games in Queue: 27
+Result: 0-1 | Winner: Stockfish_1600 | With: Stockfish_1600 | LLM as White: True
+Playing game with Stockfish_1600, LLM as White: False
+Games in Queue: 26
+Result: 0-1 | Winner: unknown | With: Stockfish_1600 | LLM as White: False
+Playing game with Stockfish_1600, LLM as White: True
+Games in Queue: 25
+Result: 1/2-1/2 | Winner: draw | With: Stockfish_1600 | LLM as White: True
+Playing game with Stockfish_1600, LLM as White: False
+Games in Queue: 24
+Result: 0-1 | Winner: unknown | With: Stockfish_1600 | LLM as White: False
+Playing game with Stockfish_1800, LLM as White: True
+Games in Queue: 23
+Result: 0-1 | Winner: Stockfish_1800 | With: Stockfish_1800 | LLM as White: True
+Playing game with Stockfish_1800, LLM as White: False
+Games in Queue: 22
+Result: 1-0 | Winner: Stockfish_1800 | With: Stockfish_1800 | LLM as White: False
+Playing game with Stockfish_1800, LLM as White: True
+Games in Queue: 21
+Result: 1-0 | Winner: unknown | With: Stockfish_1800 | LLM as White: True
+Playing game with Stockfish_1800, LLM as White: False
+Games in Queue: 20
+Result: 1-0 | Winner: Stockfish_1800 | With: Stockfish_1800 | LLM as White: False
+Playing game with Stockfish_2000, LLM as White: True
+Games in Queue: 19
+Result: 0-1 | Winner: Stockfish_2000 | With: Stockfish_2000 | LLM as White: True
+Playing game with Stockfish_2000, LLM as White: False
+Games in Queue: 18
+Result: 1-0 | Winner: Stockfish_2000 | With: Stockfish_2000 | LLM as White: False
+Playing game with Stockfish_2000, LLM as White: True
+Games in Queue: 17
+Result: 0-1 | Winner: Stockfish_2000 | With: Stockfish_2000 | LLM as White: True
+Playing game with Stockfish_2000, LLM as White: False
+Games in Queue: 16
+Result: 1-0 | Winner: Stockfish_2000 | With: Stockfish_2000 | LLM as White: False
+Playing game with Stockfish_2200, LLM as White: True
+Games in Queue: 15
+Result: 0-1 | Winner: Stockfish_2200 | With: Stockfish_2200 | LLM as White: True
+Playing game with Stockfish_2200, LLM as White: False
+Games in Queue: 14
+Result: 1-0 | Winner: Stockfish_2200 | With: Stockfish_2200 | LLM as White: False
+Playing game with Stockfish_2200, LLM as White: True
+Games in Queue: 13
+Result: 1-0 | Winner: unknown | With: Stockfish_2200 | LLM as White: True
+Playing game with Stockfish_2200, LLM as White: False
+Games in Queue: 12
+Result: 1-0 | Winner: Stockfish_2200 | With: Stockfish_2200 | LLM as White: False
+Playing game with Stockfish_2400, LLM as White: True
+Games in Queue: 11
+Result: 1-0 | Winner: unknown | With: Stockfish_2400 | LLM as White: True
+Playing game with Stockfish_2400, LLM as White: False
+Games in Queue: 10
+Result: 1-0 | Winner: Stockfish_2400 | With: Stockfish_2400 | LLM as White: False
+Playing game with Stockfish_2400, LLM as White: True
+Games in Queue: 9
+Result: 0-1 | Winner: Stockfish_2400 | With: Stockfish_2400 | LLM as White: True
+Playing game with Stockfish_2400, LLM as White: False
+Games in Queue: 8
+Result: 1-0 | Winner: Stockfish_2400 | With: Stockfish_2400 | LLM as White: False
+Playing game with Stockfish_2600, LLM as White: True
+Games in Queue: 7
+Result: 0-1 | Winner: Stockfish_2600 | With: Stockfish_2600 | LLM as White: True
+Playing game with Stockfish_2600, LLM as White: False
+Games in Queue: 6
+Result: 1-0 | Winner: Stockfish_2600 | With: Stockfish_2600 | LLM as White: False
+Playing game with Stockfish_2600, LLM as White: True
+Games in Queue: 5
+Result: 0-1 | Winner: Stockfish_2600 | With: Stockfish_2600 | LLM as White: True
+Playing game with Stockfish_2600, LLM as White: False
+Games in Queue: 4
+Result: 1-0 | Winner: Stockfish_2600 | With: Stockfish_2600 | LLM as White: False
+Playing game with Stockfish_2800, LLM as White: True
+Games in Queue: 3
+Result: 0-1 | Winner: Stockfish_2800 | With: Stockfish_2800 | LLM as White: True
+Playing game with Stockfish_2800, LLM as White: False
+Games in Queue: 2
+Result: 1-0 | Winner: Stockfish_2800 | With: Stockfish_2800 | LLM as White: False
+Playing game with Stockfish_2800, LLM as White: True
+Games in Queue: 1
+Result: 0-1 | Winner: Stockfish_2800 | With: Stockfish_2800 | LLM as White: True
+Playing game with Stockfish_2800, LLM as White: False
+Games in Queue: 0
+Result: 1-0 | Winner: Stockfish_2800 | With: Stockfish_2800 | LLM as White: False
