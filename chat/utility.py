@@ -150,19 +150,67 @@ def fen_to_description(fen: str) -> str:
     except Exception as e:
         return f"Unexpected error: {str(e)}"
 
+def fen_to_grid(fen: str) -> str:
+    """
+    Converts a FEN string into a text-based chessboard grid with spaces between pieces.
 
-def format_prompt(board: str, legal_moves: List[str]) -> str:
+    Args:
+        fen (str): The FEN string representing the board state.
+
+    Returns:
+        str: A formatted text representation of the chessboard.
+    """
+    try:
+        ranks = fen.split()[0].split('/')
+        if len(ranks) != 8:
+            raise ValueError("Invalid FEN format. The board should have 8 ranks.")
+        
+        board_grid = []
+        
+        for rank in ranks:
+            row = []
+            for char in rank:
+                if char.isdigit():
+                    row.extend(['.'] * int(char))  # Replace empty squares with '.'
+                elif char.isalpha():
+                    row.append(char)  # Keep piece symbols as is
+                else:
+                    raise ValueError(f"Invalid character '{char}' in FEN notation.")
+            board_grid.append(" ".join(row))
+        
+        return "\n".join(board_grid)
+    
+    except ValueError as e:
+        return f"Error processing FEN: {e}"
+    except Exception as e:
+        return f"Unexpected error: {str(e)}"
+
+def format_prompt(board: str, legal_moves: List[str], board_type: str = "FEN") -> str:
     """
     Formats the board and legal moves into a prompt for the model.
 
     Args:
         board (str): The current board state.
         legal_moves (List[str]): The list of legal moves.
+        board_type (str): The type of board representation, either "FEN" or "desc".
 
     Returns:
         str: The formatted prompt.
     """
     random.shuffle(legal_moves)
-    prompt = f"<FEN> {board} </FEN> <legalmoves> {legal_moves} </legalmoves>"
+    
+    if board_type == "FEN":
+        board_representation = board
+        prompt = f"<FEN> {board_representation} </FEN> <legalmoves> {legal_moves} </legalmoves>"
+    elif board_type == "desc":
+        board_representation = fen_to_description(board)
+        prompt = f"<board> \n{board_representation} </board> \n <legalmoves> {legal_moves} </legalmoves>"
+    elif board_type == "grid":
+        board_representation = fen_to_grid(board)
+        prompt = f"<board> \n{board_representation} </board> \n <legalmoves> {legal_moves} </legalmoves>"
+    else:
+        raise ValueError("Invalid board_type. Must be 'FEN' or 'desc'.")
+    
     prompt = prompt.replace("'", "")
     return prompt
+

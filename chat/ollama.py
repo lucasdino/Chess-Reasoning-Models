@@ -6,16 +6,16 @@ from functools import lru_cache
 from .utility import TimeoutError, GenerationError
 
 
-# Import our system prompt
-cur_dir = os.path.dirname(os.path.abspath(__file__))
-with open(f'{cur_dir}/systemprompt.txt', 'r') as file:
-    SYSTEM_PROMPT = file.read()
-
-
 # Cache the system prompt once.
 @lru_cache(maxsize=1)
-def _get_cached_system_messages():
-    return [{"role": "system", "content": SYSTEM_PROMPT}]
+def _get_cached_system_messages(board_representation):
+    """
+    Loads and caches the system prompt based on board representation.
+    """
+    cur_dir = os.path.dirname(os.path.abspath(__file__))
+    with open(f'{cur_dir}/systemprompt_{board_representation}.txt', 'r') as file:
+        system_prompt = file.read()
+    return [{"role": "system", "content": system_prompt}]
 
 
 # This function runs in a separate process.
@@ -27,10 +27,19 @@ def _call_ollama_chat(model, messages, options, output_queue):
         output_queue.put({"error": str(e)})
 
 class OllamaSession:
-    def __init__(self, model="deepseek-r1:1.5b", use_cuda=True):
+    def __init__(self, model="deepseek-r1:1.5b", use_cuda=True, board_representation="FEN"):
+        """
+        Initializes the OllamaSession with model and board representation.
+
+        Args:
+            model (str): The name of the model to use.
+            use_cuda (bool): Whether to use CUDA for acceleration.
+            board_representation (str): The type of board representation (e.g., "FEN", "text").
+        """
         self.model = model
         self.use_cuda = use_cuda
-        self.cached_messages = _get_cached_system_messages()
+        self.board_representation = board_representation
+        self.cached_messages = _get_cached_system_messages(board_representation)
     
     def chat(self, user_prompt, timeout=15):
         messages = self.cached_messages + [{"role": "user", "content": user_prompt}]
@@ -64,4 +73,4 @@ class OllamaSession:
             }
             return response_content, runtime_results
         else:
-            raise GenerationError("The generation failed.") 
+            raise GenerationError("The generation failed.")
