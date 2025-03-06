@@ -1,4 +1,4 @@
-from engine.stockfish import Engine, StockfishEngine
+from .engine.stockfish import Engine, StockfishEngine
 import chess
 import chess.pgn
 import datetime

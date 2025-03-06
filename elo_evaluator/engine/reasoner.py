@@ -18,12 +18,6 @@ class ReasonerEngine(Engine):
     def close(self) -> None:
         pass
 
-    def analyse(self, board: chess.Board):
-        """Analyzes the position and returns Stockfish's evaluation."""
-        analysis = self._engine.analyse(board, limit=self._limit)
-        return analysis
-
-
     def play(self, board: chess.Board) -> chess.Move:
         """Returns the best move from reasoner."""
         # here we would want to prompt the LLM
