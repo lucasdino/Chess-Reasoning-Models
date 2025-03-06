@@ -27,11 +27,11 @@ BAD_OUTPUT_REWARD = -1
 def reward_clipped(legal_moves, win_probabilities):
     z_scores = stats.zscore(win_probabilities)
     rewards = clipped_normalize_rewards(z_scores, CLIPPING_THRESHOLD)
-    return rewards
+    return dict(zip(legal_moves, rewards))
 
 def reward_zscore(legal_moves, win_probabilities):
     z_scores = stats.zscore(win_probabilities)
-    return normalize_rewards(z_scores)
+    return dict(zip(legal_moves, normalize_rewards(z_scores)))
 
 def reward_clipped_with_model_output(legal_moves, win_probabilities, model_output):
     if model_output in legal_moves:
