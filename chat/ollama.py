@@ -34,7 +34,7 @@ class OllamaSession:
         Args:
             model (str): The name of the model to use.
             use_cuda (bool): Whether to use CUDA for acceleration.
-            board_representation (str): The type of board representation (e.g., "FEN", "text").
+            board_representation (str): The type of board representation (e.g., "FEN", "desc").
         """
         self.model = model
         self.use_cuda = use_cuda

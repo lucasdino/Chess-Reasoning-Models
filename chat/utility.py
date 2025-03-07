@@ -192,7 +192,7 @@ def format_prompt(board: str, legal_moves: List[str], board_type: str = "FEN") -
     Args:
         board (str): The current board state.
         legal_moves (List[str]): The list of legal moves.
-        board_type (str): The type of board representation, either "FEN" or "desc".
+        board_type (str): The type of board representation, ["FEN", "desc", "grid"]
 
     Returns:
         str: The formatted prompt.
