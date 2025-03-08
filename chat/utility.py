@@ -299,12 +299,26 @@ def format_prompt_for_legal_move(board: str, board_type: str = "FEN", piece: str
 
 def extract_legal_moves(text: str) -> list[str]:
     """
-    Extracts legal moves between <answer> and </answer> tags, trims it, and returns it.
+    Extracts legal moves between <answer> and </answer> tags, trims it, and returns it as a list of moves.
     Raises ExtractionError if no such text exists.
-
     """
+    # Search for content between <answer> and </answer> tags
     match = re.search(r"<answer>(.*?)</answer>", text, re.DOTALL)
-    pass
+    
+    # If no match is found, raise an error
+    if not match:
+        raise ExtractionError("No legal moves found between <answer> and </answer> tags.")
+    
+    # Extract the legal moves string and strip any surrounding whitespace
+    legal_moves_str = match.group(1).strip()
+    legal_moves_str = re.sub(
+        r'^["\']|["\']$', "", legal_moves_str
+    )
+    
+    # Split the legal moves string by commas and return as a list of strings
+    legal_moves = [move.strip() for move in legal_moves_str.split(',')]
+
+    return legal_moves
 
 def extract_piece(text: str) -> list[str]:
     """
