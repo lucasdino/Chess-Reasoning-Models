@@ -197,17 +197,17 @@ def format_prompt(board: str, legal_moves: List[str], board_type: str = "FEN") -
     Returns:
         str: The formatted prompt.
     """
-    random.shuffle(legal_moves)
+    shuffled_moves = random.sample(legal_moves, len(legal_moves)) 
     
     if board_type == "FEN":
         board_representation = board
-        prompt = f"<FEN> {board_representation} </FEN> <legalmoves> {legal_moves} </legalmoves>"
+        prompt = f"<FEN> {board_representation} </FEN> <legalmoves> {shuffled_moves} </legalmoves>"
     elif board_type == "desc":
         board_representation = fen_to_description(board)
-        prompt = f"<board> \n{board_representation} </board> \n <legalmoves> {legal_moves} </legalmoves>"
+        prompt = f"<board> \n{board_representation} </board> \n <legalmoves> {shuffled_moves} </legalmoves>"
     elif board_type == "grid":
         board_representation = fen_to_grid(board)
-        prompt = f"<board> \n{board_representation} </board> \n <legalmoves> {legal_moves} </legalmoves>"
+        prompt = f"<board> \n{board_representation} </board> \n <legalmoves> {shuffled_moves} </legalmoves>"
     else:
         raise ValueError("Invalid board_type. Must be 'FEN' or 'desc'.")
     
