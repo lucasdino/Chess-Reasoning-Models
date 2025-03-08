@@ -1,0 +1,2 @@
+Playing game with Stockfish_1400, LLM as White: True
+Games in Queue: 31

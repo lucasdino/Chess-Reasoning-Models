@@ -214,29 +214,88 @@ def format_prompt(board: str, legal_moves: List[str], board_type: str = "FEN") -
     prompt = prompt.replace("'", "")
     return prompt
 
-def format_prompt_for_legal_move(board: str, board_type: str = "FEN", request_move_type="PGN", piece=None, position=None) -> str:
+def fen_to_spaces(fen: str) -> str:
+    """Converts FEN notation to a space-separated format."""
+    return ' / '.join([' '.join(row) for row in fen.split('/')])
+
+def fen_to_dots(fen: str) -> str:
+    """Converts FEN notation to a dot-based format, replacing numbers with dots."""
+    rows = []
+    for row in fen.split('/'):
+        expanded_row = ''
+        for char in row:
+            if char.isdigit():
+                expanded_row += '.' * int(char)
+            else:
+                expanded_row += char
+        rows.append(expanded_row)
+    return '/'.join(rows)
+
+def fen_to_spaced_dots(fen: str) -> str:
+    """Converts FEN notation to a dot-based format with spaces separating characters."""
+    rows = []
+    for row in fen.split('/'):
+        expanded_row = []
+        for char in row:
+            if char.isdigit():
+                expanded_row.extend(['.'] * int(char))
+            else:
+                expanded_row.append(char)
+        rows.append(' '.join(expanded_row))
+    return ' / '.join(rows)
+
+def format_prompt_for_legal_move(board: str, board_type: str = "FEN", piece: str=None, position=None, request_move_type="PGN") -> str:
     """
     Formats the board state into a structured prompt for the model to determine legal moves.
 
     Args:
         board (str): The current chess board representation.
         board_type (str): The format of the board representation (default: "FEN").
-                          Supported formats: "FEN" (Forsyth-Edwards Notation), "desc" (descriptive notation).
-        request_move_type (str): The desired move notation for the model's response (default: "PGN").
-                                 Supported formats: "PGN" (Portable Game Notation), "UCI".
+                          Supported formats: "FEN" (Forsyth-Edwards Notation), "desc" (descriptive notation), "grid".
+        position (str): The position on the board to check legal moves from (e.g., "e2").
         piece (str, optional): The specific chess piece to check legal moves for (e.g., "N" for knight, "Q" for queen).
-        position (str, optional): The position on the board to check legal moves from (e.g., "e2").
+        request_move_type (str): The desired move notation for the model's response (default: "PGN").
+                            Supported formats: "PGN" (Portable Game Notation), "UCI".
 
     Returns:
         str: A formatted prompt string to query the model about legal moves.
     """
 
-    # Pseudocode:
-    # 1. Start with a base prompt describing the board and its format.
-    # 2. If a piece is specified, include it in the prompt.
-    # 3. If a position is given, specify it in the query.
-    # 4. Specify the expected move notation format.
-    # 5. Construct and return the final formatted query.
+    # Handle the board representation format
+    if board_type == "FEN":
+        board_representation = board
+    elif board_type == "FEN_spaces":
+        board_representation = fen_to_spaces(board)
+    elif board_type == "FEN_dots":
+        board_representation = fen_to_dots(board)
+    elif board_type == "FEN_spaced_dots":
+        board_representation = fen_to_spaced_dots(board)
+    elif board_type == "desc":
+        board_representation = fen_to_description(board)
+    elif board_type == "grid":
+        board_representation = fen_to_grid(board)
+    else:
+        raise ValueError("Invalid board_type. Must be 'FEN' variations, 'desc', or 'grid'")
+
+    prompt = f"<board> \n{board_representation}\n</board>"
+
+    prompt += '\n'
+
+    # Add piece and position information if provided
+    if piece:
+        prompt += f" <piece> {piece} </piece>"
+    if position:
+        prompt += f" <position> {position} </position>"
+
+    # Specify the expected move notation
+    if request_move_type == "UCI":
+        prompt += "\n The legal moves are expected in UCI format (i.e e2e4, e1g1, e7e8q)"
+    elif request_move_type == "PGN":
+        prompt += "\n The legal moves are expected in PGN format (i.e Nxe4, Bxe7, Qb6)"
+    else:
+        raise ValueError("Invalid request_move_type. Must be 'UCI' or 'PGN'.")
+
+    return prompt
 
 def extract_legal_moves(text: str) -> list[str]:
     """
