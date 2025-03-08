@@ -67,7 +67,7 @@ def extract_answer(text: str) -> str:
     )  # Remove single/double quotes at edges
 
     # Ensure it only contains alphanumeric characters
-    if not re.fullmatch(r"[A-Za-z0-9 ]+", extracted):
+    if not re.fullmatch(r"[A-Za-z0-9 *#]+", extracted):
         raise ExtractionError("Extracted text contains invalid characters.")
 
     return extracted
