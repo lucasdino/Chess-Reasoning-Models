@@ -214,3 +214,42 @@ def format_prompt(board: str, legal_moves: List[str], board_type: str = "FEN") -
     prompt = prompt.replace("'", "")
     return prompt
 
+def format_prompt_for_legal_move(board: str, board_type: str = "FEN", request_move_type="PGN", piece=None, position=None) -> str:
+    """
+    Formats the board state into a structured prompt for the model to determine legal moves.
+
+    Args:
+        board (str): The current chess board representation.
+        board_type (str): The format of the board representation (default: "FEN").
+                          Supported formats: "FEN" (Forsyth-Edwards Notation), "desc" (descriptive notation).
+        request_move_type (str): The desired move notation for the model's response (default: "PGN").
+                                 Supported formats: "PGN" (Portable Game Notation), "UCI".
+        piece (str, optional): The specific chess piece to check legal moves for (e.g., "N" for knight, "Q" for queen).
+        position (str, optional): The position on the board to check legal moves from (e.g., "e2").
+
+    Returns:
+        str: A formatted prompt string to query the model about legal moves.
+    """
+
+    # Pseudocode:
+    # 1. Start with a base prompt describing the board and its format.
+    # 2. If a piece is specified, include it in the prompt.
+    # 3. If a position is given, specify it in the query.
+    # 4. Specify the expected move notation format.
+    # 5. Construct and return the final formatted query.
+
+def extract_legal_moves(text: str) -> list[str]:
+    """
+    Extracts legal moves between <answer> and </answer> tags, trims it, and returns it.
+    Raises ExtractionError if no such text exists.
+
+    """
+    match = re.search(r"<answer>(.*?)</answer>", text, re.DOTALL)
+    pass
+
+def extract_piece(text: str) -> list[str]:
+    """
+    Extracts piece between <answer> and </answer> tags, trims it, and returns it.
+    Raises ExtractionError if no such text exists.
+    """
+    pass
