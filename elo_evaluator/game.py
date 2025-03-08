@@ -6,6 +6,7 @@ import datetime
 # We use a stockfish engine to evaluate the current board and terminate the
 # game early if the score is high enough (i.e., _MIN_SCORE_TO_STOP).
 _EVAL_STOCKFISH_ENGINE = StockfishEngine(
+    name="eval",
     limit=chess.engine.Limit(time=0.01)
 )
 _MIN_SCORE_TO_STOP = 1300

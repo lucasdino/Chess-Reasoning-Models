@@ -1,2 +1,6 @@
 __pycache__/
 data/data_preparation/utils/test/
+verl_container/
+wandb/
+take_two/
+
