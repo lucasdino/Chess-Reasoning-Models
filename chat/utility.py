@@ -326,3 +326,49 @@ def extract_piece(text: str) -> list[str]:
     Raises ExtractionError if no such text exists.
     """
     pass
+
+def generate_chess_system_prompt(board_representation: str, move_representation: str, with_piece: bool) -> str:
+    """
+    Generates a system prompt for a chess AI based on board representation, move representation, and piece inclusion.
+    
+    Parameters:
+        board_representation (str): The type of board representation (e.g., "FEN", "ASCII", "Matrix").
+        move_representation (str): The type of move representation (e.g., "PGN", "UCI").
+        with_piece (bool): Whether the moves should include piece names.
+
+    Returns:
+        str: The generated system prompt.
+    """
+
+    # Dictionary mapping board representation to its description
+    board_descriptions = {
+    "FEN": "The board state is provided in Forsyth-Edwards Notation (FEN), a standard notation for describing a chess position.",
+    "FEN_spaces": "The board state is provided in Forsyth-Edwards Notation (FEN) and is separated by spaces for clarity",
+    "FEN_dots": "The board state is provided in variant of Forsyth-Edwards Notation (FEN) notation where dots are represented by spaces instead of numbers.",
+    "FEN_spaced_dots": "The board state is provided in variant of Forsyth-Edwards Notation (FEN) notation where dots are represented by spaces instead of numbers and is separated by spaces for clarity.",
+    "desc": "The board is represented in a descriptive textual format, listing piece placements and game state in human-readable language.",
+    "grid": "The board is displayed as a structured 8x8 grid, where each square contains either a piece symbol or a dot placeholder."
+    }
+
+
+    # Dictionary mapping move representation to its description
+    move_descriptions = {
+        "PGN": "standard algebraic notation (e.g., Nf3, e4, O-O).",
+        "UCI": "Universal Chess Interface (UCI) format (e.g., e2e4, g1f3).",
+    }
+
+    # Determine the piece inclusion text
+    piece_description = "piece type and" if with_piece else " "
+
+    # Construct the system prompt
+    prompt = (
+        "You are a chess assistant helping with move validation and prediction.\n"
+        f"{board_descriptions.get(board_representation, 'Unknown board representation.')}\n"
+        f"Given a specific {piece_description} postion on the board\n"
+        "Provide all the valid moves for that specific piece in current board as a list"
+        f"The moves should be in {move_descriptions.get(move_representation, 'Unknown move representation.')}\n"
+        f"{piece_description}\n"
+        "Think in <think> tag and give the list of moves in enclosed <answer> tag"
+    )
+
+    return prompt
