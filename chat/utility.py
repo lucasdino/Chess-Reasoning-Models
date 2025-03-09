@@ -289,9 +289,11 @@ def format_prompt_for_legal_move(board: str, board_type: str = "FEN", piece: str
 
     # Specify the expected move notation
     if request_move_type == "UCI":
-        prompt += "\n The legal moves are expected in UCI format (i.e e2e4, e1g1, e7e8q)"
+        # prompt += "\nThe legal moves are expected in UCI format (i.e e2e4, e1g1, e7e8q)"
+        prompt += "\nThe legal moves are expected in UCI format"
     elif request_move_type == "PGN":
-        prompt += "\n The legal moves are expected in PGN format (i.e Nxe4, Bxe7, Qb6)"
+        # prompt += "\nThe legal moves are expected in SAN format (i.e Nxe4, Bxe7, Qb6)"
+        prompt += "\nThe legal moves are expected in SAN format"
     else:
         raise ValueError("Invalid request_move_type. Must be 'UCI' or 'PGN'.")
 
@@ -353,14 +355,16 @@ def generate_chess_system_prompt(board_representation: str, move_representation:
 
     # Dictionary mapping move representation to its description
     move_descriptions = {
-        "PGN": "standard algebraic notation (e.g., R1e1, Qxe7#, O-O).",
-        "UCI": "Universal Chess Interface (UCI) format (e.g., e2e4, g1f3).",
+        # "PGN": "standard algebraic notation (e.g., R1e1, Qxe7#, O-O).",
+        "PGN": "Standard Algebraic Notation (SAN) format.",
+        # "UCI": "Universal Chess Interface (UCI) format (e.g., e2e4, g1f3).",
+        "UCI": "Universal Chess Interface (UCI) format.",
     }
 
     # Dictionary mapping move representation to examples
     move_examples = {
-        "PGN": "<answer>Nxe5, Nf3, Nbd2</answer>",
-        "UCI": "<answer>d4c2, d4e6, d4b3</answer>",
+        "PGN": "<answer> __ , __ , __ ...</answer>",
+        "UCI": "<answer>__ , __ , __ ...</answer>",
     }
 
     # Determine the piece inclusion text
@@ -368,14 +372,17 @@ def generate_chess_system_prompt(board_representation: str, move_representation:
 
     # Construct the system prompt
     prompt = (
-    "You are a chess assistant specializing in move validation and prediction.\n"
+    "You are a smart, strategic, and wise chess reasoning model looking for the legal moves to move a piece.\n"
     f"{board_descriptions.get(board_representation, 'Unknown board representation.')}\n"
     f"Given a specific {piece_description} position on the board, analyze the position carefully.\n"
     "Your task is to determine and provide **all valid moves** for the given piece in the current board state.\n"
+    "The type of chess piece is specified within the <piece> </piece> tag and its position within the <position> </position> tag."
     f"Moves should be formatted in {move_descriptions.get(move_representation, 'Unknown move representation.')}\n"
     "Think through your reasoning within <think> tags before arriving at the final answer.\n"
-    "The final list of moves should be enclosed within <answer> tags.\n\n"
-    f"**Example answer:** {move_examples.get(move_representation, '<answer>No example available</answer>')}"
+    "The final list of moves should be enclosed within <answer> tags.\n"
+    "If there are no moves possible don't populate anything between the <answer> tags.\n\n"
+    "For example, when given an input prefixed with \"user:\", your response should be in the format \"assistant: <think> [your reasoning] </think> <answer> [list of legal moves] </answer>\n"
+    # f"**Example answer:** {move_examples.get(move_representation, '<answer>No example available</answer>')}"
     )
 
     return prompt

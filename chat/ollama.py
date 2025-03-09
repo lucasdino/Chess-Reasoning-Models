@@ -76,9 +76,9 @@ class OllamaSession:
             raise GenerationError("The generation failed.")
         
     def chat_baseline(self, system_prompt, user_prompt, timeout=15):
-        messages = system_prompt + [{"role": "user", "content": user_prompt}]
+        messages = [{"role": "system", "content": system_prompt}] + [{"role": "user", "content": user_prompt}]
         options = {
-            "num_gpu_layers": 10 if self.use_cuda else {},
+            # "num_gpu_layers": 10 if self.use_cuda else {},
             "max_tokens": 4000,
             "num_ctx": 5000
         }

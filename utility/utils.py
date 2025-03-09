@@ -3,9 +3,9 @@ import chess
 
 def get_random_piece_and_position(board: str):
     """
-    Selects a random unique piece from the given FEN board representation and returns its piece letter and position.
+    Selects a random unique piece from the given FEN board representation that belongs to the current player.
 
-    This function first identifies all unique piece types on the board and selects one at random.
+    This function first identifies all unique piece types of the current player's color and selects one at random.
     Then, it picks a random position where that piece is located.
 
     Args:
@@ -19,8 +19,10 @@ def get_random_piece_and_position(board: str):
     files = 'abcdefgh'
     ranks = '87654321'  # FEN starts from rank 8 (top) to rank 1 (bottom)
     
-    # Extract board part from FEN
-    board_rows = board.split()[0].split('/')
+    # Extract board part and turn information from FEN
+    board_parts = board.split()
+    board_rows = board_parts[0].split('/')
+    current_turn = board_parts[1]  # 'w' for white, 'b' for black
     
     piece_positions = {}  # Map piece -> list of positions
     
@@ -31,12 +33,14 @@ def get_random_piece_and_position(board: str):
                 file_index += int(char)  # Skip empty squares
             else:
                 position = files[file_index] + ranks[rank_index]  # Convert to algebraic notation
-                if char not in piece_positions:
-                    piece_positions[char] = []
-                piece_positions[char].append(position)
+                is_white = char.isupper()
+                if (current_turn == 'w' and is_white) or (current_turn == 'b' and not is_white):
+                    if char not in piece_positions:
+                        piece_positions[char] = []
+                    piece_positions[char].append(position)
                 file_index += 1  # Move to the next file
 
-    # Select a random unique piece type
+    # Select a random unique piece type from the current player's pieces
     if not piece_positions:
         return None, None
 
@@ -82,7 +86,7 @@ def get_legal_moves(fen: str, piece_position: str, move_representation: str = "U
     if move_representation == "UCI":
         legal_moves_for_piece = [move.uci() for move in legal_moves_for_piece]
     elif move_representation == "PGN":
-        legal_moves_for_piece = [move.pgn() for move in legal_moves_for_piece]
+        legal_moves_for_piece = [board.san(move) for move in legal_moves_for_piece]
     else:
         raise ValueError("Unsupported move representation. Use 'UCI' or 'PGN'.")
 
@@ -93,11 +97,14 @@ def compare_moves_and_legal_moves(moves, legal_moves):
     moves_set = set(moves)
     legal_moves_set = set(legal_moves)
 
-    # Correct Moves Predicted: moves that are legal but not predicted
-    correct_moves = legal_moves_set - moves_set
+    # Correct Moves Predicted: moves that are legal and predicted
+    correct_moves = moves_set & legal_moves_set
+    
+    # Missed Moves: moves that are legal but not predicted   
+    missed_moves = legal_moves_set - moves_set
 
     # Illegal Moves Predicted: moves that are predicted but not legal
     illegal_moves = moves_set - legal_moves_set
 
     # Return the results
-    return correct_moves, illegal_moves
+    return list(correct_moves), list(missed_moves), list(illegal_moves)
