@@ -332,7 +332,7 @@ def generate_chess_system_prompt(board_representation: str, move_representation:
     Generates a system prompt for a chess AI based on board representation, move representation, and piece inclusion.
     
     Parameters:
-        board_representation (str): The type of board representation (e.g., "FEN", "ASCII", "Matrix").
+        board_representation (str): The type of board representation (e.g., "FEN").
         move_representation (str): The type of move representation (e.g., "PGN", "UCI").
         with_piece (bool): Whether the moves should include piece names.
 
@@ -353,8 +353,14 @@ def generate_chess_system_prompt(board_representation: str, move_representation:
 
     # Dictionary mapping move representation to its description
     move_descriptions = {
-        "PGN": "standard algebraic notation (e.g., Nf3, e4, O-O).",
+        "PGN": "standard algebraic notation (e.g., R1e1, Qxe7#, O-O).",
         "UCI": "Universal Chess Interface (UCI) format (e.g., e2e4, g1f3).",
+    }
+
+    # Dictionary mapping move representation to examples
+    move_examples = {
+        "PGN": "<answer>Nxe5, Nf3, Nbd2</answer>",
+        "UCI": "<answer>d4c2, d4e6, d4b3</answer>",
     }
 
     # Determine the piece inclusion text
@@ -362,13 +368,14 @@ def generate_chess_system_prompt(board_representation: str, move_representation:
 
     # Construct the system prompt
     prompt = (
-        "You are a chess assistant helping with move validation and prediction.\n"
-        f"{board_descriptions.get(board_representation, 'Unknown board representation.')}\n"
-        f"Given a specific {piece_description} postion on the board\n"
-        "Provide all the valid moves for that specific piece in current board as a list"
-        f"The moves should be in {move_descriptions.get(move_representation, 'Unknown move representation.')}\n"
-        f"{piece_description}\n"
-        "Think in <think> tag and give the list of moves in enclosed <answer> tag"
+    "You are a chess assistant specializing in move validation and prediction.\n"
+    f"{board_descriptions.get(board_representation, 'Unknown board representation.')}\n"
+    f"Given a specific {piece_description} position on the board, analyze the position carefully.\n"
+    "Your task is to determine and provide **all valid moves** for the given piece in the current board state.\n"
+    f"Moves should be formatted in {move_descriptions.get(move_representation, 'Unknown move representation.')}\n"
+    "Think through your reasoning within <think> tags before arriving at the final answer.\n"
+    "The final list of moves should be enclosed within <answer> tags.\n\n"
+    f"**Example answer:** {move_examples.get(move_representation, '<answer>No example available</answer>')}"
     )
 
     return prompt
