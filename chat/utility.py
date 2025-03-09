@@ -67,7 +67,7 @@ def extract_answer(text: str) -> str:
     )  # Remove single/double quotes at edges
 
     # Ensure it only contains alphanumeric characters
-    if not re.fullmatch(r"[A-Za-z0-9 ]+", extracted):
+    if not re.fullmatch(r"[A-Za-z0-9 *#]+", extracted):
         raise ExtractionError("Extracted text contains invalid characters.")
 
     return extracted
@@ -192,22 +192,22 @@ def format_prompt(board: str, legal_moves: List[str], board_type: str = "FEN") -
     Args:
         board (str): The current board state.
         legal_moves (List[str]): The list of legal moves.
-        board_type (str): The type of board representation, either "FEN" or "desc".
+        board_type (str): The type of board representation, ["FEN", "desc", "grid"]
 
     Returns:
         str: The formatted prompt.
     """
-    random.shuffle(legal_moves)
+    shuffled_moves = random.sample(legal_moves, len(legal_moves)) 
     
     if board_type == "FEN":
         board_representation = board
-        prompt = f"<FEN> {board_representation} </FEN> <legalmoves> {legal_moves} </legalmoves>"
+        prompt = f"<FEN> {board_representation} </FEN> <legalmoves> {shuffled_moves} </legalmoves>"
     elif board_type == "desc":
         board_representation = fen_to_description(board)
-        prompt = f"<board> \n{board_representation} </board> \n <legalmoves> {legal_moves} </legalmoves>"
+        prompt = f"<board> \n{board_representation} </board> \n <legalmoves> {shuffled_moves} </legalmoves>"
     elif board_type == "grid":
         board_representation = fen_to_grid(board)
-        prompt = f"<board> \n{board_representation} </board> \n <legalmoves> {legal_moves} </legalmoves>"
+        prompt = f"<board> \n{board_representation} </board> \n <legalmoves> {shuffled_moves} </legalmoves>"
     else:
         raise ValueError("Invalid board_type. Must be 'FEN' or 'desc'.")
     
