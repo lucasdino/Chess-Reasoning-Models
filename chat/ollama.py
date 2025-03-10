@@ -39,7 +39,7 @@ class OllamaSession:
         self.model = model
         self.use_cuda = use_cuda
         self.board_representation = board_representation
-        self.cached_messages = _get_cached_system_messages(board_representation)
+        # self.cached_messages = _get_cached_system_messages(board_representation)
     
     def chat(self, user_prompt, timeout=15):
         messages = self.cached_messages + [{"role": "user", "content": user_prompt}]

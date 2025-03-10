@@ -346,8 +346,8 @@ def generate_chess_system_prompt(board_representation: str, move_representation:
     board_descriptions = {
     "FEN": "The board state is provided in Forsyth-Edwards Notation (FEN), a standard notation for describing a chess position.",
     "FEN_spaces": "The board state is provided in Forsyth-Edwards Notation (FEN) and is separated by spaces for clarity",
-    "FEN_dots": "The board state is provided in variant of Forsyth-Edwards Notation (FEN) notation where dots are represented by spaces instead of numbers.",
-    "FEN_spaced_dots": "The board state is provided in variant of Forsyth-Edwards Notation (FEN) notation where dots are represented by spaces instead of numbers and is separated by spaces for clarity.",
+    "FEN_dots": "The board state is provided in variant of Forsyth-Edwards Notation (FEN) notation where empty squares are represented by dots instead of numbers.",
+    "FEN_spaced_dots": "The board state is provided in variant of Forsyth-Edwards Notation (FEN) notation where empty squares are represented by dots instead of numbers and is separated by spaces for clarity.",
     "desc": "The board is represented in a descriptive textual format, listing piece placements and game state in human-readable language.",
     "grid": "The board is displayed as a structured 8x8 grid, where each square contains either a piece symbol or a dot placeholder."
     }
